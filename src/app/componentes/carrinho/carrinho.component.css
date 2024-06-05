@@ -17,12 +17,17 @@
   margin-bottom: 0.5rem;
 }
 
-.btn-danger {
+.text-danger {
   margin-top: 10px;
-  align-self: flex-start;
+  cursor: pointer;
 }
 
 .btn-warning {
   display: block;
   margin: 20px auto;
+  text-align: center;
+}
+
+.input-group {
+  max-width: 20%; /* Ajuste conforme necessário */
 }

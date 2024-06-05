@@ -2,3 +2,8 @@
   height: 2em;
   width: auto;
 }
+
+.badge{
+  border-radius: 15px;
+  font-size: 0.6em;
+}

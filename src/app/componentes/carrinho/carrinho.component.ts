@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Pedido } from 'src/app/model/Pedido';
+import { CarrinhoService } from 'src/app/services/carrinho.service';
 
 @Component({
   selector: 'app-carrinho',
@@ -9,33 +10,31 @@ import { Pedido } from 'src/app/model/Pedido';
 export class CarrinhoComponent implements OnInit {
   public pedido: Pedido | null = null;
 
-  ngOnInit(): void {
-    this.carregarCarrinho();
-  }
+  constructor(private carrinhoService: CarrinhoService) {}
 
-  public carregarCarrinho(): void {
-    const carrinho = localStorage.getItem('easyStoreCarrinho');
-    if (carrinho) {
-      this.pedido = JSON.parse(carrinho) as Pedido;
-    }
+  ngOnInit(): void {
+    this.carrinhoService.carrinho$.subscribe(pedido => {
+      this.pedido = pedido;
+    });
   }
 
   public excluirItem(index: number): void {
     if (this.pedido) {
-      this.pedido.itensPedido.splice(index, 1);
-      this.recalcularValorTotal();
-      localStorage.setItem('easyStoreCarrinho', JSON.stringify(this.pedido));
+      this.carrinhoService.excluirItem(index);
     }
   }
 
   public limparCarrinho(): void {
-    this.pedido = null;
-    localStorage.removeItem('easyStoreCarrinho');
+    this.carrinhoService.limparCarrinho();
+
   }
 
-  private recalcularValorTotal(): void {
-    if (this.pedido) {
-      this.pedido.valorTotal = this.pedido.itensPedido.reduce((total, item) => total + item.precoTotal, 0);
+  atualizarQuantidade(index: number, quantidade: number): void {
+    if (this.pedido && quantidade > 0) {
+      const item = this.pedido.itensPedido[index];
+      item.qtdeItem = quantidade;
+      item.precoTotal = quantidade * item.precoUnitario;
+      this.carrinhoService.atualizarCarrinho();
     }
   }
 }

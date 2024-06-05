@@ -23,6 +23,7 @@
           <li class="nav-item">
             <a class="nav-link" [routerLink]="['/carrinho']">
                 <i class="fa-solid fa-cart-shopping"></i> <!--fa-2x-->
+                <span *ngIf="quantidadeItensCarrinho > 0" class="badge bg-warning text-dark text-center">{{ quantidadeItensCarrinho }}</span>
             </a>
           </li>
         </ul>
