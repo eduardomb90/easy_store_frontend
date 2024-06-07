@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Pedido } from 'src/app/model/Pedido';
 import { CarrinhoService } from 'src/app/services/carrinho.service';
 
@@ -10,7 +11,10 @@ import { CarrinhoService } from 'src/app/services/carrinho.service';
 export class CarrinhoComponent implements OnInit {
   public pedido: Pedido | null = null;
 
-  constructor(private carrinhoService: CarrinhoService) {}
+  constructor(
+    private carrinhoService: CarrinhoService,
+    private route: Router
+  ) {}
 
   ngOnInit(): void {
     this.carrinhoService.carrinho$.subscribe(pedido => {
@@ -36,5 +40,14 @@ export class CarrinhoComponent implements OnInit {
       item.precoTotal = quantidade * item.precoUnitario;
       this.carrinhoService.atualizarCarrinho();
     }
+  }
+
+  public finalizarCompra(){
+    if(this.pedido != null && this.pedido?.itensPedido.length > 0) {
+      this.route.navigate(['/finalizarcompra']);
+    } else {
+      this.route.navigate(['/destaques']);
+    }
+
   }
 }

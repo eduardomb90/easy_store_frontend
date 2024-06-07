@@ -11,6 +11,7 @@ import { CarrosselComponent } from './componentes/carrossel/carrossel.component'
 import { DetalhesComponent } from './componentes/detalhes/detalhes.component';
 import { FormsModule } from '@angular/forms';
 import { CarrinhoComponent } from './componentes/carrinho/carrinho.component';
+import { FinalizarpedidoComponent } from './componentes/finalizarpedido/finalizarpedido.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { CarrinhoComponent } from './componentes/carrinho/carrinho.component';
     DestaquesComponent,
     CarrosselComponent,
     DetalhesComponent,
-    CarrinhoComponent
+    CarrinhoComponent,
+    FinalizarpedidoComponent
   ],
   imports: [
     BrowserModule,

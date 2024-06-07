@@ -6,7 +6,7 @@
   </div>
 
   <div id="itens">
-    <div class="row" *ngIf="pedido; else vazio">
+    <div class="row" *ngIf="pedido && pedido.itensPedido.length > 0; else vazio">
       <div class="list-group">
         <div class="list-group-item" *ngFor="let item of pedido.itensPedido; let i = index">
           <div class="row g-0">
@@ -37,9 +37,9 @@
     </a>
   </div>
 
-  <div class="row">
+  <div class="row" *ngIf="pedido && pedido.itensPedido.length > 0">
     <div class="col-12 text-center">
-      <button class="btn btn-primary">Finalizar Compra</button>
+      <button class="btn btn-primary" (click)="finalizarCompra()">Finalizar Compra</button>
     </div>
   </div>
 
