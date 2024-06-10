@@ -1,0 +1,13 @@
+.btn__buscar {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+}
+
+/* Estilo do botão quando está desabilitado */
+.btn__buscar[disabled] {
+  background-color: #d6d6d6;
+  border-color: #d6d6d6;
+  color: #aaa;
+  cursor: not-allowed;
+}

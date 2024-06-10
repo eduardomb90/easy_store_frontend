@@ -1,0 +1,21 @@
+<div class="container" *ngIf="idPedido != 0">
+  <div class="row">
+    <div class="col-12 text-center">
+      <h1>Recibo do seu pedido</h1>
+    </div>
+
+    <div class="row">
+      <div class="col-12 text-center">
+        <h3>Pedido numero {{idPedido}}</h3>
+      </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 text-center">
+      <p>Este é seu comprovante</p>
+    </div>
+</div>
+
+<ng-template #noId>
+  <p>Não há pedido registrado.</p>
+</ng-template>

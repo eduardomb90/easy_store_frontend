@@ -10,8 +10,10 @@ import { DestaquesComponent } from './componentes/destaques/destaques.component'
 import { CarrosselComponent } from './componentes/carrossel/carrossel.component';
 import { DetalhesComponent } from './componentes/detalhes/detalhes.component';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { CarrinhoComponent } from './componentes/carrinho/carrinho.component';
 import { FinalizarpedidoComponent } from './componentes/finalizarpedido/finalizarpedido.component';
+import { ReciboComponent } from './componentes/recibo/recibo.component';
 
 @NgModule({
   declarations: [
@@ -22,13 +24,15 @@ import { FinalizarpedidoComponent } from './componentes/finalizarpedido/finaliza
     CarrosselComponent,
     DetalhesComponent,
     CarrinhoComponent,
-    FinalizarpedidoComponent
+    FinalizarpedidoComponent,
+    ReciboComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

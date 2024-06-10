@@ -1,14 +1,100 @@
 <div class="container">
-  <div class="row" id="divBusca">
-    <div class="form-group">
-      <label for="txtTelefone">WhatsApp</label>
-      <input type="text" class="form-control" id="txtTelefone" placeholder="Telefone" [(ngModel)]="cliente.telefone">
+  <form [formGroup]="clienteForm" (ngSubmit)="buscarTelefone()">
+    <div class="row" id="divBusca">
+      <div class="form-group">
+        <label for="txtTelefone">WhatsApp</label>
+        <input type="text" class="form-control" id="txtTelefone" placeholder="Telefone" formControlName="telefone" (keydown.enter)="buscarTelefone()">
+        <div *ngIf="telefone?.invalid && (telefone?.dirty || telefone?.touched)" class="text-danger">
+          <div *ngIf="telefone?.errors?.['required']">O telefone é obrigatório.</div>
+          <div *ngIf="telefone?.errors?.['pattern']">Por favor, insira um número de telefone válido.</div>
+        </div>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-primary" [disabled]="clienteForm.invalid">Buscar</button>
+      </div>
     </div>
-    <div>
-      <button type="button" class="btn btn-primary" (click)="buscarTelefone()">Buscar</button>
+  </form>
+  <div id="divDetalhes" *ngIf="visivel">
+    <div class="row" *ngIf="!existe">
+      <div class="col-12">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <strong>Bem vindo(a)!</strong> Você é novo(a) por aqui.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
     </div>
-  </div>
-  <div id="divDetalhes">
 
+    <div [formGroup]="clienteForm">
+      <div class="form-group">
+        <label for="txtNome">Nome: </label>
+        <input type="text" class="form-control" id="txtNome" placeholder="Nome" formControlName="nome">
+      </div>
+      <div class="form-group">
+        <label for="txtEmail">E-mail: </label>
+        <input type="text" class="form-control" id="txtEmail" placeholder="E-mail" formControlName="email">
+      </div>
+      <div class="form-group">
+        <label for="txtCep">CEP: </label>
+        <input type="text" class="form-control" id="txtCep" formControlName="cep">
+      </div>
+      <div class="form-group">
+        <label for="txtLogradouro">Logradouro: </label>
+        <input type="text" class="form-control" id="txtLogradouro" placeholder="Logradouro" formControlName="logradouro">
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <label for="txtNumero">Numero: </label>
+            <input type="text" class="form-control" id="txtNumero" formControlName="numero">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="txtComplemento">Complemento: </label>
+            <input type="text" class="form-control" id="txtComplemento" formControlName="complemento">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-4">
+          <div class="form-group">
+            <label for="txtBairro">Bairro: </label>
+            <input type="text" class="form-control" id="txtBairro" placeholder="Bairro" formControlName="bairro">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="txtCidade">Cidade: </label>
+            <input type="text" class="form-control" id="txtCidade" placeholder="Cidade" formControlName="cidade">
+          </div>
+        </div>
+        <div class="col-2">
+          <div class="form-group">
+            <label for="txtEstado">Estado: </label>
+            <input type="text" class="form-control" id="txtEstado" placeholder="UF" formControlName="estado">
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="form-group">
+      <label for="txtObservacao">Observações do seu pedido: </label>
+      <input type="text" class="form-control" id="txtObservacao" placeholder="Informe se você tem alguma preferência na entrega."
+        [(ngModel)] = "observacoes"
+      >
+    </div>
+
+
+    <div class="row">
+      <div class="col-12 text-center">
+        <button type="button" class="btn btn-primary" (click)="confirmarPedido()">Confirmar Pedido</button>
+      </div>
+    </div>
   </div>
 </div>
