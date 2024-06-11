@@ -16,4 +16,8 @@ export class ClienteService {
     return this.httpClient.get<Cliente>(`${this.apiUrl}/${telefone}`);
   }
 
+  public buscarClientePeloCpf(cpf: String) : Observable<Cliente>{
+    return this.httpClient.get<Cliente>(`${this.apiUrl}/${cpf}`);
+  }
+
 }

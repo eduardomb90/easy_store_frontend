@@ -1,16 +1,16 @@
 <div class="container">
-  <form [formGroup]="clienteForm" (ngSubmit)="buscarTelefone()">
+  <form [formGroup]="cpfForm" (ngSubmit)="buscarTelefone()">
     <div class="row" id="divBusca">
       <div class="form-group">
-        <label for="txtTelefone">WhatsApp</label>
-        <input type="text" class="form-control" id="txtTelefone" placeholder="Telefone" formControlName="telefone" (keydown.enter)="buscarTelefone()">
-        <div *ngIf="telefone?.invalid && (telefone?.dirty || telefone?.touched)" class="text-danger">
-          <div *ngIf="telefone?.errors?.['required']">O telefone é obrigatório.</div>
-          <div *ngIf="telefone?.errors?.['pattern']">Por favor, insira um número de telefone válido.</div>
+        <label for="txtCpf">CPF: </label>
+        <input type="text" class="form-control" id="txtCpf" placeholder="000.000.000-00" formControlName="cpf" (keydown.enter)="buscarCpf()">
+        <div *ngIf="cpf?.invalid && (cpf?.dirty || cpf?.touched)" class="text-danger">
+          <div *ngIf="cpf?.errors?.['required']">O CPF é obrigatório.</div>
+          <div *ngIf="cpf?.errors?.['pattern']">Por favor, insira um número de CPF válido.</div>
         </div>
       </div>
       <div>
-        <button type="submit" class="btn btn-primary" [disabled]="clienteForm.invalid">Buscar</button>
+        <button type="submit" class="btn btn-primary" [disabled]="cpfForm.invalid">Buscar</button>
       </div>
     </div>
   </form>
@@ -35,10 +35,16 @@
         <label for="txtEmail">E-mail: </label>
         <input type="text" class="form-control" id="txtEmail" placeholder="E-mail" formControlName="email">
       </div>
-      <div class="form-group">
-        <label for="txtCep">CEP: </label>
-        <input type="text" class="form-control" id="txtCep" formControlName="cep">
+      <div class="row">
+        <div class="form-group">
+          <label for="txtCep">CEP: </label>
+          <input type="text" class="form-control" id="txtCep" formControlName="cep">
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+          <button type="button" id="btnCep" (click)="buscarCep()" class="btn btn-primary" [disabled]="clienteForm.invalid">Consultar CEP</button>
+        </div>
       </div>
+
       <div class="form-group">
         <label for="txtLogradouro">Logradouro: </label>
         <input type="text" class="form-control" id="txtLogradouro" placeholder="Logradouro" formControlName="logradouro">

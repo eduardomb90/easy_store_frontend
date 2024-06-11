@@ -10,4 +10,5 @@ export class Pedido {
   public itensPedido: ItemPedido[] = [];
   public valorTotal: number = 0;
   public observacoes!: string;
+  public timestamp!: number;
 }

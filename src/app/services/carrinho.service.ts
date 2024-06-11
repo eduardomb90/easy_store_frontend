@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Pedido } from '../model/Pedido';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { ItemPedido } from '../model/ItemPedido';
+import { ProdutoService } from './produto.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,16 +13,29 @@ export class CarrinhoService {
 
   carrinho$ = this.carrinhoSubject.asObservable();
 
-  constructor() {
+  constructor(private produtoService: ProdutoService) {
     this.carregarCarrinho();
   }
 
   carregarCarrinho(): void {
     const carrinho = localStorage.getItem('easyStoreCarrinho');
     if (carrinho) {
-      this.pedido = JSON.parse(carrinho) as Pedido;
-      this.carrinhoSubject.next(this.pedido);
+      const parsedCarrinho = JSON.parse(carrinho) as Pedido;
+      const expiracao = parsedCarrinho.timestamp;
+
+      if (Date.now() > expiracao) {
+        this.limparCarrinho();
+      } else {
+        this.pedido = parsedCarrinho;
+        this.carrinhoSubject.next(this.pedido);
+      }
     }
+  }
+
+  private getProximaMeiaNoite(): number {
+    const agora = new Date();
+    const proximaMeiaNoite = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate() + 1);
+    return proximaMeiaNoite.getTime();
   }
 
   adicionarItem(item: ItemPedido): void {
@@ -38,6 +52,7 @@ export class CarrinhoService {
 
   atualizarCarrinho(): void {
     this.pedido.valorTotal = this.pedido.itensPedido.reduce((total, item) => total + item.precoTotal, 0);
+    this.pedido.timestamp = this.getProximaMeiaNoite(); // Define a expiração para a próxima meia-noite
     localStorage.setItem('easyStoreCarrinho', JSON.stringify(this.pedido));
     this.carrinhoSubject.next(this.pedido);
   }
@@ -50,5 +65,22 @@ export class CarrinhoService {
 
   obterQuantidadeItens(): number {
     return this.pedido.itensPedido.length;
+  }
+
+  async atualizarPrecos(): Promise<Pedido> {
+    const atualizacoes = this.pedido.itensPedido.map(async item => {
+      const produtoAtualizado = await lastValueFrom(this.produtoService.getProduto(item.produto.id));
+      if (produtoAtualizado) {
+        item.produto.preco = produtoAtualizado.preco;
+        item.precoUnitario = produtoAtualizado.preco;
+        item.precoTotal = produtoAtualizado.preco * item.qtdeItem;
+      }
+      return item;
+    });
+
+    await Promise.all(atualizacoes);
+    this.pedido.valorTotal = this.pedido.itensPedido.reduce((total, item) => total + item.precoTotal, 0);
+    this.atualizarCarrinho();
+    return this.pedido;
   }
 }

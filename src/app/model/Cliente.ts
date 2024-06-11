@@ -3,6 +3,7 @@ export class Cliente {
   public nome!: String;
   public email!: String;
   public telefone!: String;
+  public cpf!: String;
   public cep!: String;
   public logradouro!: String;
   public numero!: String;
