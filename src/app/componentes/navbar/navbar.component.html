@@ -15,7 +15,7 @@
             </a>
             <ul class="dropdown-menu">
               <div *ngFor="let categoria of categorias">
-                <li><a class="dropdown-item" href="#">{{categoria.nome}}</a></li>
+                <li><a class="dropdown-item" [routerLink]="['/categorias', categoria.id]">{{categoria.nome}}</a></li>
               </div>
             </ul>
           </li>
@@ -27,12 +27,12 @@
             </a>
           </li>
         </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Procure seu produto" aria-label="Search">
-          <button class="btn" type="submit">
+        <div class="d-flex" role="search">
+          <input class="me-2" type="search" placeholder="Procure seu produto" aria-label="Search" [(ngModel)]="keyword" (keydown.enter)="buscarProduto()">
+          <button class="btn" (click)="buscarProduto()">
             <i class="fa-solid fa-magnifying-glass fa-2x"></i>
           </button>
-        </form>
+        </div>
       </div>
     </div>
   </nav>

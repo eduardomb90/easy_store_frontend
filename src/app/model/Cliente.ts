@@ -1,14 +1,15 @@
 export class Cliente {
   public idCliente!: number;
-  public nome!: String;
-  public email!: String;
-  public telefone!: String;
-  public cpf!: String;
-  public cep!: String;
-  public logradouro!: String;
-  public numero!: String;
-  public complemento!: String;
-  public bairro!: String;
-  public cidade!: String;
-  public estado!: String;
+  public nome!: string;
+  public email!: string;
+  public telefone!: string;
+  public dataNasc!: string;
+  public cpf!: string;
+  public cep!: string;
+  public logradouro!: string;
+  public numero!: string;
+  public complemento!: string;
+  public bairro!: string;
+  public cidade!: string;
+  public estado!: string;
 }

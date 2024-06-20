@@ -37,6 +37,9 @@
     </a>
   </div>
 
+  <div class="col-12 text-center">
+    <button class="btn btn-primary" (click)="continuarCompra()">Continuar comprando</button>
+  </div>
   <div class="row" *ngIf="pedido && pedido.itensPedido.length > 0">
     <div class="col-12 text-center">
       <button class="btn btn-primary" (click)="finalizarCompra()">Finalizar Compra</button>

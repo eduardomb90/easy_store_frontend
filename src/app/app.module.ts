@@ -14,6 +14,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CarrinhoComponent } from './componentes/carrinho/carrinho.component';
 import { FinalizarpedidoComponent } from './componentes/finalizarpedido/finalizarpedido.component';
 import { ReciboComponent } from './componentes/recibo/recibo.component';
+import { BuscarcategoriaComponent } from './componentes/buscarcategoria/buscarcategoria.component';
+import { BuscapalavrachaveComponent } from './componentes/buscapalavrachave/buscapalavrachave.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { ReciboComponent } from './componentes/recibo/recibo.component';
     DetalhesComponent,
     CarrinhoComponent,
     FinalizarpedidoComponent,
-    ReciboComponent
+    ReciboComponent,
+    BuscarcategoriaComponent,
+    BuscapalavrachaveComponent
   ],
   imports: [
     BrowserModule,

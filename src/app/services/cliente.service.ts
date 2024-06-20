@@ -17,6 +17,7 @@ export class ClienteService {
   }
 
   public buscarClientePeloCpf(cpf: String) : Observable<Cliente>{
+    console.log(cpf);
     return this.httpClient.get<Cliente>(`${this.apiUrl}/${cpf}`);
   }
 

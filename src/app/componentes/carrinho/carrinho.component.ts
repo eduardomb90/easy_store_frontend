@@ -42,6 +42,10 @@ export class CarrinhoComponent implements OnInit {
     }
   }
 
+  public continuarCompra(): void{
+    this.route.navigate(['/']);
+  }
+
   public finalizarCompra(){
     if(this.pedido != null && this.pedido?.itensPedido.length > 0) {
       this.route.navigate(['/finalizarcompra']);

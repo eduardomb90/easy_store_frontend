@@ -1,12 +1,12 @@
 <div class="container">
-  <form [formGroup]="cpfForm" (ngSubmit)="buscarTelefone()">
+  <form [formGroup]="cpfForm" (ngSubmit)="buscarCpf()">
     <div class="row" id="divBusca">
       <div class="form-group">
         <label for="txtCpf">CPF: </label>
-        <input type="text" class="form-control" id="txtCpf" placeholder="000.000.000-00" formControlName="cpf" (keydown.enter)="buscarCpf()">
+        <input type="text" class="form-control" id="txtCpf" formControlName="cpf" (keydown.enter)="buscarCpf()">
         <div *ngIf="cpf?.invalid && (cpf?.dirty || cpf?.touched)" class="text-danger">
           <div *ngIf="cpf?.errors?.['required']">O CPF é obrigatório.</div>
-          <div *ngIf="cpf?.errors?.['pattern']">Por favor, insira um número de CPF válido.</div>
+          <div *ngIf="cpf?.errors?.['pattern']">Por favor, insira somente números.</div>
         </div>
       </div>
       <div>
@@ -36,58 +36,93 @@
         <input type="text" class="form-control" id="txtEmail" placeholder="E-mail" formControlName="email">
       </div>
       <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div class="form-group">
+            <label for="txtTelefone">Telefone: </label>
+            <input type="text" class="form-control" id="txtTelefone" formControlName="telefone">
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div class="form-group">
+            <label for="txtDataNasc">Data de Nascimento: </label>
+            <input type="date" class="form-control" id="txtDataNasc" formControlName="dataNasc">
+          </div>
+        </div>
+
+      </div>
+
+      <!-- PERGUNTA ENDERECO -->
+      <div class="row mb-3" id="divPergunta" *ngIf="exibirPerguntaEndereco">
+        <div class="col-12 mb-3">
+          Seu endereço continua o mesmo?
+          {{ endereco }}
+        </div>
+        <div class="col-6 text-center">
+          <button type="button" class="btn btn-primary" (click)="ocultarForm()">Sim</button>
+        </div >
+        <div class="col-6 text-center">
+          <button type="button" class="btn btn-secondary" (click)="exibirForm()">Não</button>
+        </div>
+      </div>
+      <!-- FIM DA PERGUNTA ENDERECO -->
+
+      <!-- FORM ENDERECO -->
+      <div *ngIf="exibirFormEndereco">
+        <div class="row">
+          <div class="form-group">
+            <label for="txtCep">CEP: </label>
+            <input type="text" class="form-control" id="txtCep" formControlName="cep">
+          </div>
+          <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+            <button type="button" id="btnCep" (click)="buscarCep()" class="btn btn-primary" [disabled]="clienteForm.invalid">Consultar CEP</button>
+          </div>
+        </div>
+
         <div class="form-group">
-          <label for="txtCep">CEP: </label>
-          <input type="text" class="form-control" id="txtCep" formControlName="cep">
+          <label for="txtLogradouro">Logradouro: </label>
+          <input type="text" class="form-control" id="txtLogradouro" placeholder="Rua ..." formControlName="logradouro">
         </div>
-        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2">
-          <button type="button" id="btnCep" (click)="buscarCep()" class="btn btn-primary" [disabled]="clienteForm.invalid">Consultar CEP</button>
-        </div>
-      </div>
 
-      <div class="form-group">
-        <label for="txtLogradouro">Logradouro: </label>
-        <input type="text" class="form-control" id="txtLogradouro" placeholder="Logradouro" formControlName="logradouro">
-      </div>
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="txtNumero">Numero: </label>
+              <input type="text" class="form-control" id="txtNumero" formControlName="numero">
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label for="txtComplemento">Complemento: </label>
+              <input type="text" class="form-control" id="txtComplemento" formControlName="complemento">
+            </div>
+          </div>
+        </div>
 
-      <div class="row">
-        <div class="col-6">
-          <div class="form-group">
-            <label for="txtNumero">Numero: </label>
-            <input type="text" class="form-control" id="txtNumero" formControlName="numero">
+        <div class="row">
+          <div class="col-4">
+            <div class="form-group">
+              <label for="txtBairro">Bairro: </label>
+              <input type="text" class="form-control" id="txtBairro" placeholder="Bairro" formControlName="bairro">
+            </div>
           </div>
-        </div>
-        <div class="col-6">
-          <div class="form-group">
-            <label for="txtComplemento">Complemento: </label>
-            <input type="text" class="form-control" id="txtComplemento" formControlName="complemento">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="txtCidade">Cidade: </label>
+              <input type="text" class="form-control" id="txtCidade" placeholder="Cidade" formControlName="cidade">
+            </div>
           </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-4">
-          <div class="form-group">
-            <label for="txtBairro">Bairro: </label>
-            <input type="text" class="form-control" id="txtBairro" placeholder="Bairro" formControlName="bairro">
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="form-group">
-            <label for="txtCidade">Cidade: </label>
-            <input type="text" class="form-control" id="txtCidade" placeholder="Cidade" formControlName="cidade">
-          </div>
-        </div>
-        <div class="col-2">
-          <div class="form-group">
-            <label for="txtEstado">Estado: </label>
-            <input type="text" class="form-control" id="txtEstado" placeholder="UF" formControlName="estado">
+          <div class="col-2">
+            <div class="form-group">
+              <label for="txtEstado">Estado: </label>
+              <input type="text" class="form-control" id="txtEstado" placeholder="UF" formControlName="estado">
+            </div>
           </div>
         </div>
       </div>
-
 
     </div>
+
+    <!-- FIM DO FORM ENDERECO -->
 
     <div class="form-group">
       <label for="txtObservacao">Observações do seu pedido: </label>
@@ -97,7 +132,7 @@
     </div>
 
 
-    <div class="row">
+    <div class="row" *ngIf="!exibirPerguntaEndereco">
       <div class="col-12 text-center">
         <button type="button" class="btn btn-primary" (click)="confirmarPedido()">Confirmar Pedido</button>
       </div>

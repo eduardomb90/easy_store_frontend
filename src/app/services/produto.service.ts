@@ -19,4 +19,12 @@ export class ProdutoService {
   public getProduto(id: number): Observable<Produto> {
     return this.httpClient.get<Produto>(`${this.apiUrl}/${id}`);
   }
+
+  public getProdutosPelaCategoria(idCategoria: number): Observable<Produto[]> {
+    return this.httpClient.get<Produto[]>(`${this.apiUrl}/categoria/${idCategoria}`);
+  }
+
+  public getProdutosPelaPalavraChave(keyword: string): Observable<Produto[]> {
+    return this.httpClient.get<Produto[]>(`${this.apiUrl}/busca?key=${keyword}`);
+  }
 }
